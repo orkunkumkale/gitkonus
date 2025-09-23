@@ -6,6 +6,49 @@
 <title>Git Konus Uygulamasi</title>
   
 <style>
+  body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #passwordPrompt {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        #passwordInput {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #errorMessage {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+        #protectedContent {
+            display: none;
+            text-align: center;
+        }
 #splash {
   position: fixed;
   inset: 0;
@@ -720,6 +763,21 @@ button:hover { transform: scale(1.05); }
     </div>
   </div>
 </div>
+  <!-- Password Prompt -->
+    <div id="passwordPrompt">
+        <h2>Enter Password</h2>
+        <input type="password" id="passwordInput" placeholder="Enter the password">
+        <button onclick="checkPassword()">Submit</button>
+        <p id="errorMessage">Incorrect password. Please try again.</p>
+    </div>
+
+    <!-- Your Original Content, Wrapped in a Protected Container -->
+    <div id="protectedContent">
+        <h1>Welcome to Git Konus</h1>
+        <p>This is my webpage content.</p>
+        <!-- Add your original body content here -->
+        <!-- For example, any additional <p>, <img>, <div>, or other elements from your original index.html -->
+    </div>
 
 <div class="top-row controls-row">
 <div class="top-controls" id="menuBtn">
@@ -1134,6 +1192,30 @@ function buildUnfinishedLesson(lesson, index) {
   playBtn.className = 'play-btn';
   playBtn.textContent = "";
   playBtn.onclick = () => openVideoPopup(videos[index]);
+
+  const assignedPassword = "mySecretPassword123"; // Replace with your chosen password
+
+        function checkPassword() {
+            const userInput = document.getElementById("passwordInput").value;
+            const protectedContent = document.getElementById("protectedContent");
+            const passwordPrompt = document.getElementById("passwordPrompt");
+            const errorMessage = document.getElementById("errorMessage");
+
+            if (userInput === assignedPassword) {
+                passwordPrompt.style.display = "none"; // Hide prompt
+                protectedContent.style.display = "block"; // Show content
+            } else {
+                errorMessage.style.display = "block"; // Show error
+                document.getElementById("passwordInput").value = ""; // Clear input
+            }
+        }
+
+        // Allow pressing Enter to submit
+        document.getElementById("passwordInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
 
   // ADD YOUTUBE APP BUTTON
   const youtubeAppBtn = document.createElement('div');
