@@ -52,6 +52,19 @@
   text-align: center;
 }
 
+<div id="passwordModal" style="
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.7); display:flex;
+  justify-content:center; align-items:center; z-index:9999;">
+  <div style="background:#fff; padding:10px 15px; border-radius:5px; text-align:center;">
+    <h2>Şifre Girişi</h2>
+    <input id="passwordInput" type="password" placeholder="Şifre" style="padding:8px;width:80%;margin:10px 0;">
+    <br>
+    <button id="submitPassword" style="padding:8px 16px;">Giriş</button>
+    <p id="errorMsg" style="color:red;display:none;margin-top:10px;">Yanlış şifre!</p>
+  </div>
+</div>
+
 /* Bounce animation on wrapper */
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
@@ -79,6 +92,8 @@
   60% { transform: scale(1.7); opacity: 1; }
   100% { transform: scale(2); }
 }
+
+
   
 body { font-family: Georgia, serif; margin: 0; padding: 0; padding-top: 80px; background: #5458a6; color: #fff; }
 
@@ -695,22 +710,30 @@ button:hover { transform: scale(1.05); }
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const CORRECT_PASSWORD = "2025"; // 🔑 Change to your password
-    const STORAGE_KEY = "page_unlocked";
+document.addEventListener("DOMContentLoaded", function () {
+  const CORRECT_PASSWORD = "2025"; // 🔑 Change this
+  const STORAGE_KEY = "page_unlocked";
+  const modal = document.getElementById("passwordModal");
+  const input = document.getElementById("passwordInput");
+  const btn = document.getElementById("submitPassword");
+  const error = document.getElementById("errorMsg");
 
-    // Check if user already unlocked
-    if (localStorage.getItem(STORAGE_KEY) !== "true") {
-      let pass = prompt("Bu sayfaya erişmek için şifreyi girin:");
-      if (pass === CORRECT_PASSWORD) {
-        localStorage.setItem(STORAGE_KEY, "true");
-        alert("✔ Giriş başarılı!");
-      } else {
-        alert("❌ Yanlış şifre. Erişim engellendi.");
-        window.location.href = "about:blank"; // or redirect elsewhere
-      }
+  // Show modal if not unlocked
+  if (localStorage.getItem(STORAGE_KEY) !== "true") {
+    modal.style.display = "flex";
+  } else {
+    modal.style.display = "none";
+  }
+
+  btn.addEventListener("click", function () {
+    if (input.value === CORRECT_PASSWORD) {
+      localStorage.setItem(STORAGE_KEY, "true");
+      modal.style.display = "none";
+    } else {
+      error.style.display = "block";
     }
   });
+});
 </script>
 
 
@@ -2728,5 +2751,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </button>
   </div>
 </div>
+
+
 </body>
 </html>
