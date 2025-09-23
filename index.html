@@ -6,6 +6,8 @@
 <title>Git Konus Uygulamasi</title>
   
 <style>
+
+
  
 #splash {
   position: fixed;
@@ -691,6 +693,27 @@ button:hover { transform: scale(1.05); }
   background: #4247a6;
 }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const CORRECT_PASSWORD = "2025"; // 🔑 Change to your password
+    const STORAGE_KEY = "page_unlocked";
+
+    // Check if user already unlocked
+    if (localStorage.getItem(STORAGE_KEY) !== "true") {
+      let pass = prompt("Bu sayfaya erişmek için şifreyi girin:");
+      if (pass === CORRECT_PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, "true");
+        alert("✔ Giriş başarılı!");
+      } else {
+        alert("❌ Yanlış şifre. Erişim engellendi.");
+        window.location.href = "about:blank"; // or redirect elsewhere
+      }
+    }
+  });
+</script>
+
+
 </head>
 <body>
 <div id="splash">
@@ -817,6 +840,8 @@ button:hover { transform: scale(1.05); }
     </button>
   </div>
 </div>
+
+
 
 <div class="confirm-popup" id="allDonePopup">
   <div class="confirm-content" style="font-family: Georgia, serif; font-size:1.2500em;">
@@ -1001,6 +1026,8 @@ button:hover { transform: scale(1.05); }
         }
         return gk_fileData[filename] || "";
         }
+
+
 /* --- SPLASH SCRIPT --- */
 window.addEventListener("load", function () {
   setTimeout(() => {
@@ -2671,6 +2698,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // OPTIONAL: preload first image when page loads
   document.addEventListener('DOMContentLoaded', updateImage);
+
+
 
 </script>
 <div class="popup" id="sharePopup">
